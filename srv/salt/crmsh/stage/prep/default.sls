@@ -1,3 +1,3 @@
 
-cmd run:
-  -
+include:
+  - .master
