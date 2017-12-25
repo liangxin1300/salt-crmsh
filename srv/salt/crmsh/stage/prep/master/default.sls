@@ -1,7 +1,7 @@
 
 sync master:
   salt.state:
-    - tgt: '{{ salt['pillar.get']('master_minion') }}'
+    - tgt: '{{ salt['pillar.get']('minion_nodes') }}'
     - sls: crmsh.sync
 
 create corosync key:
