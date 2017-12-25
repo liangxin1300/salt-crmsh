@@ -1,2 +1,2 @@
 
-master_minion: _REPLACE_ME_
+master_minion: '*'
