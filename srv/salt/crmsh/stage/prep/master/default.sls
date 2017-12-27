@@ -35,3 +35,11 @@ create corosync conf:
     - tgt_type: compound
     - sls: crmsh.corosync.config
     - failhard: True
+
+
+start pacemaker:
+  salt.state:
+    - tgt: '{{ salt['pillar.get']('minion_nodes') }}'
+    - tgt_type: compound
+    - sls: crmsh.pacemaker.start
+    - failhard: True
