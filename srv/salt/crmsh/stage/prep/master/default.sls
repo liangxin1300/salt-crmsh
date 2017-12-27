@@ -1,7 +1,7 @@
 
 sync master:
   salt.state:
-    - tgt: '{{ salt['pillar.get']('minion_nodes') }}'
+    - tgt: '*'
     - sls: crmsh.sync
     - failhard: True
 
@@ -24,5 +24,14 @@ get key:
 sync key:
   salt.state:
     - tgt: '{{ salt['pillar.get']('minion_nodes') }}'
+    - tgt_type: compound
     - sls: crmsh.corosync.keysync
+    - failhard: True
+
+
+create corosync conf:
+  salt.state:
+    - tgt: '{{ salt['pillar.get']('minion_nodes') }}'
+    - tgt_type: compound
+    - sls: crmsh.corosync.config
     - failhard: True
