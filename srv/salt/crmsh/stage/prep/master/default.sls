@@ -13,6 +13,14 @@ create corosync key:
     - failhard: True
 
 
+get key:
+  salt.runner:
+    - name: authkey.get
+    - node: {{ salt.saltutil.runner('select.one_minion') }}
+    - onchanges:
+      - create corosync key
+
+
 sync key:
   salt.state:
     - tgt: '{{ salt['pillar.get']('minion_nodes') }}'

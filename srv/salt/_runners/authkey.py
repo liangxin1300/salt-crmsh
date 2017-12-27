@@ -2,24 +2,14 @@
 
 import sys
 import os
-import salt.runner
-import salt.config
 import salt.client
 
 
-def get():
-    __opts__ = salt.config.client_config('/etc/salt/master')
-    runner = salt.runner.RunnerClient(__opts__)
-
-    _stdout = sys.stdout
-    sys.stdout = open(os.devnull, 'w')
-    imp_minion = runner.cmd('select.one_minion')
-    sys.stdout = _stdout
-
+def get(node):
     local = salt.client.LocalClient()
-    authkey = local.cmd(imp_minion, 'pillar.get', ['corosync_authkey'])
-    result = local.cmd(imp_minion, 'file.read', [authkey[imp_minion]])
+    authkey = local.cmd(node, 'pillar.get', ['corosync_authkey'])
+    result = local.cmd(node, 'file.read', [authkey[node]])
     with open("/srv/salt/authkey", 'w') as f:
-        f.write(result[imp_minion])
+        f.write(result[node])
 
     return True
